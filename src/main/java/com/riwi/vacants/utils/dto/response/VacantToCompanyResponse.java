@@ -1,7 +1,6 @@
 package com.riwi.vacants.utils.dto.response;
 
 import com.riwi.vacants.utils.enums.StatusVacant;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

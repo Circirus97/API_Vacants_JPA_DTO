@@ -1,15 +1,14 @@
 package com.riwi.vacants.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import com.riwi.vacants.services.interfaces.ICompanyService;
 import com.riwi.vacants.utils.dto.request.CompanyRequest;
 import com.riwi.vacants.utils.dto.response.CompanyResponse;
-
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/company")
@@ -33,6 +32,7 @@ public class CompanyController {
 
     @PostMapping
     public ResponseEntity<CompanyResponse> insert(
+            @Validated
             @RequestBody CompanyRequest company) {
         return ResponseEntity.ok(this.companyService.create(company));
     }
@@ -46,6 +46,7 @@ public class CompanyController {
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<CompanyResponse> update(
+            @Validated
             @PathVariable String id,
             @RequestBody CompanyRequest company
     ){

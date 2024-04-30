@@ -1,15 +1,5 @@
 package com.riwi.vacants.services;
 
-import java.util.ArrayList;
-import java.util.stream.Collectors;
-
-import com.riwi.vacants.utils.exceptions.IdNotFoundException;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Service;
-
 import com.riwi.vacants.entities.Company;
 import com.riwi.vacants.entities.Vacant;
 import com.riwi.vacants.repositories.CompanyRepository;
@@ -17,8 +7,16 @@ import com.riwi.vacants.services.interfaces.ICompanyService;
 import com.riwi.vacants.utils.dto.request.CompanyRequest;
 import com.riwi.vacants.utils.dto.response.CompanyResponse;
 import com.riwi.vacants.utils.dto.response.VacantToCompanyResponse;
-
+import com.riwi.vacants.utils.exceptions.IdNotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
