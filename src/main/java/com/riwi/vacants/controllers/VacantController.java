@@ -34,4 +34,26 @@ public class VacantController {
         return ResponseEntity.ok(this.iVacantsService.create(vacant));
     }
 
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<VacantResponse> get(@PathVariable Long id){
+        return ResponseEntity.ok(this.iVacantsService.getById(id));
+    }
+
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<VacantResponse> update(
+            @Validated
+            @PathVariable Long id,
+            @RequestBody VacantRequest vacant
+    ){
+        return ResponseEntity.ok(this.iVacantsService.update(vacant, id));
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+
+        this.iVacantsService.delete(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
 }

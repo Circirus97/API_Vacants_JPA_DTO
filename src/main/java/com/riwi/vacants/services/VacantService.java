@@ -54,17 +54,28 @@ public class VacantService implements IVacantsService {
 
     @Override
     public VacantResponse update(VacantRequest request, Long id) {
-        return null;
+
+    Vacant vacantToUpdate = this.find(id);
+
+    Vacant vacant = this.requestToVacant(request, vacantToUpdate);
+
+    return this.entityToResponse(this.vacantRepository.save(vacant));
+
     }
 
     @Override
     public void delete(Long id) {
+        Vacant vacant = this.find(id);
 
+        this.vacantRepository.delete(vacant);
     }
 
     @Override
     public VacantResponse getById(Long id) {
-        return null;
+
+        Vacant vacant = this.find(id);
+
+        return  this.entityToResponse(vacant);
     }
 
     private VacantResponse entityToResponse(Vacant entity){
@@ -99,5 +110,9 @@ public class VacantService implements IVacantsService {
         entity.setStatus(StatusVacant.ACTIVE);
 
         return entity;
+    }
+
+    private Vacant find(Long id){
+        return  this.vacantRepository.findById(id).orElseThrow(() -> new IdNotFoundException("Vacant"));
     }
 }
