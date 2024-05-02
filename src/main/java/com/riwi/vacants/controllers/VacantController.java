@@ -6,6 +6,7 @@ import com.riwi.vacants.utils.dto.response.VacantResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -25,7 +26,10 @@ public class VacantController {
 
 
     @PostMapping
-    public ResponseEntity<VacantResponse> insert(@RequestBody VacantRequest vacant){
+    public ResponseEntity<VacantResponse> insert(
+            @Validated
+            @RequestBody
+            VacantRequest vacant){
 
         return ResponseEntity.ok(this.iVacantsService.create(vacant));
     }
