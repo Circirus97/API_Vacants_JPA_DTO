@@ -24,7 +24,7 @@ public class VacantRequest {
 
     private StatusVacant status;
 
-    @Size(min = 0, max = 32)
+    //@Size(min = 0, max = 32)
     @NotBlank(message = "El ID de la compañía es requerido")
     private String companyId;
 }

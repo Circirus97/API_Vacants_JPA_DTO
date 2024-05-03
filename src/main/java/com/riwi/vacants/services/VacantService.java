@@ -55,12 +55,24 @@ public class VacantService implements IVacantsService {
     @Override
     public VacantResponse update(VacantRequest request, Long id) {
 
-    Vacant vacantToUpdate = this.find(id);
+        //Buscamos la vacante
+        Vacant vacant = this.find(id);
 
-    Vacant vacant = this.requestToVacant(request, vacantToUpdate);
+        //Validamos la compañia
+        Company company = this.companyRepository.findById(request.getCompanyId())
+                .orElseThrow(() -> new IdNotFoundException("Company"));
 
-    return this.entityToResponse(this.vacantRepository.save(vacant));
 
+        //Convertimos el DTO de request
+        vacant = this.requestToVacant(request, vacant);
+
+        //Agregamos la vacante
+        vacant.setCompany(company);
+
+        //Agregamos el nuevo status
+        vacant.setStatus(request.getStatus());
+
+        return this.entityToResponse(this.vacantRepository.save(vacant));
     }
 
     @Override
@@ -75,10 +87,10 @@ public class VacantService implements IVacantsService {
 
         Vacant vacant = this.find(id);
 
-        return  this.entityToResponse(vacant);
+        return this.entityToResponse(vacant);
     }
 
-    private VacantResponse entityToResponse(Vacant entity){
+    private VacantResponse entityToResponse(Vacant entity) {
         /**
          * Creamos instancion del DTO de vacante
          */
@@ -103,7 +115,7 @@ public class VacantService implements IVacantsService {
         return response;
     }
 
-    private Vacant requestToVacant(VacantRequest request, Vacant entity){
+    private Vacant requestToVacant(VacantRequest request, Vacant entity) {
 
         entity.setTitle(request.getTitle());
         entity.setDescription(request.getDescription());
@@ -112,7 +124,7 @@ public class VacantService implements IVacantsService {
         return entity;
     }
 
-    private Vacant find(Long id){
-        return  this.vacantRepository.findById(id).orElseThrow(() -> new IdNotFoundException("Vacant"));
+    private Vacant find(Long id) {
+        return this.vacantRepository.findById(id).orElseThrow(() -> new IdNotFoundException("Vacant"));
     }
 }

@@ -9,6 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping(path = "/vacants")
 @RequiredArgsConstructor
@@ -39,6 +42,18 @@ public class VacantController {
         return ResponseEntity.ok(this.iVacantsService.getById(id));
     }
 
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Map<String, String>> delete(@PathVariable Long id){
+
+        Map<String, String> response = new HashMap<>();
+
+        response.put("message", "Vacante eliminada correctamente");
+
+        this.iVacantsService.delete(id);
+
+        return ResponseEntity.ok(response);
+    }
+
     @PutMapping(path = "/{id}")
     public ResponseEntity<VacantResponse> update(
             @Validated
@@ -48,12 +63,5 @@ public class VacantController {
         return ResponseEntity.ok(this.iVacantsService.update(vacant, id));
     }
 
-    @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id){
-
-        this.iVacantsService.delete(id);
-
-        return ResponseEntity.noContent().build();
-    }
 
 }
